@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package chatroom;
+
+message Empty {}
+
+message ChatMessage {
+    string username = 1;
+    string text = 2;
+    int64 timestamp = 3;
+}
+
+message ChatRequest {
+    ChatMessage message = 1;
+}
+
+message ChatSnapshot {
+    repeated ChatMessage messages = 1;
+}
+
+message SnapshotRequest {
+    int64 startTime = 1;
+}
+
+message PingResponse {
+    string message = 1; // optional server message
+}
+
+service ChatService {
+    rpc SendMessage(ChatRequest) returns (Empty);
+
+    rpc GetSnapshot(SnapshotRequest) returns (ChatSnapshot);
+
+    rpc Ping(Empty) returns (PingResponse);
+}

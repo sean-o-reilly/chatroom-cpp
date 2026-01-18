@@ -1,0 +1,7 @@
+build/
+CMakeFiles/
+_deps/
+generated/
+*.o
+*.a
+*.so

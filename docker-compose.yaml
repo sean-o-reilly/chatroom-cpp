@@ -1,0 +1,41 @@
+services:
+  server:
+    build: .
+    image: chatroom
+    networks:
+      - chatroom-net
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./config:/app/config
+    environment:
+      CHATROOM_LISTEN_ADDRESS: 0.0.0.0:50051
+    command: ./Server
+
+  client:
+    image: chatroom
+    networks:
+      - chatroom-net
+    volumes:
+      - ./config:/app/config
+    environment:
+      CHATROOM_SERVER_ADDRESS: server:50051
+    command: ./Client
+    depends_on:
+      - server
+
+  bot:
+    image: chatroom
+    networks:
+      - chatroom-net
+    volumes:
+      - ./config:/app/config
+    environment:
+      CHATROOM_SERVER_ADDRESS: server:50051
+    command: ./Bot
+    depends_on:
+      - server
+
+networks:
+  chatroom-net:
+    driver: bridge
