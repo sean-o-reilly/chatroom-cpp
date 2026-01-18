@@ -38,6 +38,8 @@ FetchContent_MakeAvailable(
 find_package(Protobuf REQUIRED)
 find_package(gRPC REQUIRED)
 
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/generated)
+
 # Compile .proto files via protoc
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin REQUIRED)
 file(GLOB PROTO_FILES "${CMAKE_SOURCE_DIR}/proto/*.proto")
